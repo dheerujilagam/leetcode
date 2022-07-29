@@ -4,9 +4,9 @@ public:
         vector<int>::iterator it;
         it = find (vec.begin(), vec.end(), target);
         if (it != vec.end()){
-        return it-vec.begin();
-    }
-    else
-        return -1;
+            return it-vec.begin();
+        }
+        else
+            return -1;
     }
 };

@@ -11,27 +11,22 @@
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
-        ListNode* slow = head;
-        vector<int>res;
-        while(slow){
-            res.push_back(slow->val);
-            slow=slow->next;
+        if(head->next==NULL)
+            return NULL;
+        if(head->next->next==NULL){
+            head->next=NULL;
+            return head;
         }
-        ListNode *root=NULL;
-        ListNode *temp=NULL;
-        for(int i=0;i<res.size();i++){
-            if(i==res.size()/2)
-                continue;
-            else{
-                if(root==NULL)
-                    root=temp=new ListNode(res[i]);
-                else{
-                    ListNode *newnode = new ListNode(res[i]);
-                    temp->next=newnode;
-                    temp=temp->next;
-                }
-            }
+        ListNode *s=head;
+        ListNode *f=head;
+        ListNode *r=NULL;
+        while(f!=NULL && f->next!=NULL){
+            r=s;
+            s=s->next;
+            f=f->next->next;
         }
-        return root;
+        r->next=s->next;
+        s->next=NULL;
+        return head;
     }
 };

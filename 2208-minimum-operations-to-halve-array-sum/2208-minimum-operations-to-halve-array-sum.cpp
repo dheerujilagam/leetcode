@@ -1,24 +1,21 @@
 class Solution {
 public:
     int halveArray(vector<int>& nums) {
+        priority_queue<double>pq;
         double sum=0;
-        priority_queue<double> pq;
-        for(auto num:nums) {
-            sum+=num;
-            pq.push(num);
+        for(auto i:nums){
+            pq.push(i);
+            sum+=i;
         }
-        
         int c=0;
         double temp=0;
-        while(temp<sum/2) {
-            double curNum=pq.top();
-            double newNum=curNum/2;
-            temp+=newNum;
+        while(temp<sum/2){
+            double val = pq.top();
             pq.pop();
-            pq.push(newNum);
+            temp+=val/2;
+            pq.push(val/2);
             c++;
         }
-        
         return c;
     }
 };

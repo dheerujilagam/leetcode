@@ -8,7 +8,7 @@ public:
         }
         int val=mp[deck[0]];
         for(auto it:mp)
-            val=__gcd(val,it.second);
+            val=gcd(val,it.second);
         if(val<2) return false;
         for(auto it:mp){
             if(it.second%val!=0)

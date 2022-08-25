@@ -14,9 +14,6 @@ public:
             else
                 st.push(s[i]);
         }
-        if(st.size()==2) return 1;
-        else{
-            return st.size()/2;
-        }
+        return st.size()/2;
     }
 };

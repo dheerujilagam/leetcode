@@ -7,9 +7,6 @@ public:
             if(val==1)
                 return 1;
         }
-        if(val==1)
-            return 1;
-        else
-            return 0;
+        return 0;
     }
 };

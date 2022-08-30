@@ -11,30 +11,17 @@
  */
 class Solution {
 public:
-    vector<int>v;
-    int sum;
-    void trav(TreeNode* root){
+    TreeNode* bTg(TreeNode* root,int &sum){
         if(root==NULL)
-            return ;
-        auto it=lower_bound(v.begin(),v.end(),root->val)-v.begin();
-        v.insert(v.begin()+it,root->val);
-        trav(root->left);
-        trav(root->right);
-    }
-    void assign(TreeNode* root){
-        if(root==NULL)
-            return ;
-        auto it=lower_bound(v.begin(),v.end(),root->val)-v.begin();
-        root->val=sum-accumulate(v.begin(),v.begin()+it,0);
-        assign(root->left);
-        assign(root->right);
+            return NULL;
+        bTg(root->right,sum);
+        sum+=root->val;
+        root->val=sum;
+        bTg(root->left,sum);
+        return root;
     }
     TreeNode* convertBST(TreeNode* root) {
-        trav(root);
-        sum=accumulate(v.begin(),v.end(),0);
-        assign(root);
-        for(auto i:v)
-            cout<<i<<" ";
-        return root;
+        int sum=0;
+        return bTg(root,sum);
     }
 };

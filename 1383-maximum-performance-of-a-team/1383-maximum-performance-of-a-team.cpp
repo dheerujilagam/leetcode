@@ -11,7 +11,7 @@ public:
         for(int i=n-1;i>=0;i--){
             t+=vp[i].second;
             pq.push(vp[i].second);
-            while(pq.size()>k){
+            if(pq.size()>k){
                 t-=pq.top();
                 pq.pop();
             }

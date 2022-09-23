@@ -3,4 +3,4 @@ class Solution:
         st=""
         for i  in range(1,n+1):
             st+=bin(i)[2:]
-        return (int(st,2))%((10**9)+7)
+        return (int(st,2))%(1000000007)

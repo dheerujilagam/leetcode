@@ -12,10 +12,10 @@ public:
         return str;
     }
     int concatenatedBinary(int n) {
-        long mod=1000000007,l=0,ans=0;
+        long long ans=0,mod=1000000007;
         for(int i=1;i<=n;i++){
-            l=log2(i)+1;
-            ans=((ans<<l)+i)%mod;
+            string s=DToB(i);
+            ans=(((ans<<s.size())%mod)+i)%mod;
         }
         return ans;
     }

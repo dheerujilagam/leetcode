@@ -2,8 +2,5 @@ class Solution:
     def concatenatedBinary(self, n: int) -> int:
         st=""
         for i  in range(1,n+1):
-            s=str(bin(i))[2:]
-            st+=s
-        val=int(st,2)
-        mod=(10**9)+7
-        return val%mod
+            st+=bin(i)[2:]
+        return (int(st,2))%((10**9)+7)

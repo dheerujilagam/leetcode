@@ -15,7 +15,6 @@
  */
 class Solution {
     List<List<Integer>>f=new ArrayList<>();
-    
     public void check(TreeNode r, int targetsum, List<Integer>t){
         if(r==null) return ;
         t.add(r.val);
@@ -28,7 +27,8 @@ class Solution {
         t.remove(t.size()-1);
     }
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        check(root,targetSum,new ArrayList<>());
+        List<Integer>t=new ArrayList<>();
+        check(root,targetSum,t);
         return f;
     }
 }

@@ -32,7 +32,7 @@ class MyCircularQueue {
     }
     
     public boolean deQueue() {
-        if(f!=null){
+        if(cursize>0){
             ListNode temp = f;
             f=f.next;
             temp.next=null;

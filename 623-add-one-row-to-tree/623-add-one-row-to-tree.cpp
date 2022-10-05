@@ -13,7 +13,7 @@ class Solution {
 public:
     TreeNode* tra(TreeNode* r, int v, int d,int l_end, int r_end){
         if(d==1){
-            if(l_end==r_end || l_end==1)
+            if(l_end==1)
                 return new TreeNode(v,r,NULL);
             if(r_end==1)
                 return new TreeNode(v,NULL,r);
@@ -27,6 +27,6 @@ public:
         
     }
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
-        return tra(root,val,depth,0,0);
+        return tra(root,val,depth,1,1);
     }
 };

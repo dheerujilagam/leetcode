@@ -1,17 +1,16 @@
 class Solution {
-public:
-    string breakPalindrome(string p) {
-        int n=p.size();
-        if(n==1){
+    public String breakPalindrome(String p) {
+        int n=p.length();
+        if(n==1)
             return "";
-        }
+        StringBuilder s = new StringBuilder(p);
         for(int i=0;i<n/2;i++){
-            if(p[i]!=97){
-                p[i]=97;
-                return p;
+            if(s.charAt(i)!='a'){
+                s.setCharAt(i,'a');
+                return s.toString();
             }
         }
-        p[n-1]=98;
-        return p;
+        s.setCharAt(n-1,'b');
+        return s.toString();
     }
-};
+}

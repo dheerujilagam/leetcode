@@ -19,8 +19,6 @@ public:
             dp[i][0]=0;
         for(int i=0;i<=n;i++)
             dp[0][i]=0;
-        for(int i=1;i<=m;i++)
-            dp[m][n]=0;
         for(int i=1;i<=m;i++){
             for(int j=1;j<=n;j++){
                 if(t1[i-1]==t2[j-1])

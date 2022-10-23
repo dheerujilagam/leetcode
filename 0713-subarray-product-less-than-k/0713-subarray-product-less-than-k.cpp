@@ -8,8 +8,7 @@ public:
                 pro/=nums[p];
                 p++;
             }
-            if(p<n)
-                cnt+=(i-p+1);
+            cnt+=(i-p+1);
         }
         return cnt;
     }

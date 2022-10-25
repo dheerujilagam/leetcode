@@ -9,7 +9,7 @@ class Solution {
     	vis[node]=1;
     	for(auto it:adj[node]){
     		if(!vis[it]){
-    			vis[it]=1;
+    			//vis[it]=1;
     			if(dfs(it,node,vis,adj))
     				return true;
     		}

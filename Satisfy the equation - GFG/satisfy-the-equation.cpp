@@ -15,7 +15,7 @@ class Solution {
         for(int i=0;i<n;i++){
             for(int j=i+1;j<n;j++){
                 int val=a[i]+a[j];
-                if(mp.find(val)!=mp.end()){
+                if(mp.count(val)){
                     for(auto it:mp[val]){
                         if(it.first!=i && it.second!=j && it.first!=j && it.second!=i){
                             return {i,j,it.first,it.second};

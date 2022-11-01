@@ -1,19 +1,18 @@
 class Solution {
-public:
-    void solve(string cur, int open, int close, int n, vector<string>&res){
-        if(open>n || close>n || close>open)
+    public void solve(String cur, int op, int cl, int n, List<String>res){
+        if(op>n || cl>n || cl>op)
             return ;
-        if(open==n && close==n){
-            res.push_back(cur);
+        if(op==n && cl==n){
+            res.add(cur);
             return ;
         }
-        solve(cur+'(',open+1,close,n,res);
-        solve(cur+')',open,close+1,n,res);
+        solve(cur+'(',op+1,cl,n,res);
+        solve(cur+')',op,cl+1,n,res);
         return ;
     }
-    vector<string> generateParenthesis(int n) {
-        vector<string>res;
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<String>();
         solve("",0,0,n,res);
         return res;
     }
-};
+}

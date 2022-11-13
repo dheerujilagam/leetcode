@@ -11,12 +11,12 @@ class Solution{
 public:
     int totalWays(int n, vector<int>capacity) {
         // code here
-        long long int m=1e9+7,p=1;
+        long long int mod=1e9+7,ans=1;
         sort(capacity.begin(),capacity.end());
         for(int i=0;i<n;i++){
-            p=(p*(capacity[i]-i))%m;
+            ans=(ans*(capacity[i]-i))%mod;
         }
-        return p;
+        return ans;
     }
 };
 

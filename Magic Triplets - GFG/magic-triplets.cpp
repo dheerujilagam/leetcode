@@ -8,7 +8,7 @@ class Solution{
 	int countTriplets(vector<int>nums){
 	    // Code here.
 	    int c=0,n=nums.size();
-	    for(int i=1;i<n;i++){
+	    for(int i=1;i<n-1;i++){
 	        int l=0;
 	        for(int j=0;j<i;j++){
 	            if(nums[j]<nums[i])

@@ -40,13 +40,7 @@ string buildLowestNumber(string num, int k)
         res=st.top()+res;
         st.pop();
     }
-    int id=-1;
-    for(int i=0;i<res.size();i++){
-        if(res[i]!=0) break;
-        id=i;
-    }
-    if(id==res.size()-1) return "0";
-    else if(id>=0) return res.substr(id+1);
+    if(res.size()==0) return "0";
     return res;
     
 }

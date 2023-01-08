@@ -18,7 +18,7 @@ class Solution {
             dp[arr[i]%k]++;
         long c=0;
         for(int i=0;i<k;i++){
-            if(dp[i]!=0)
+            if(dp[i]>1)
                 c+=(dp[i]*(dp[i]-1)/2);
         }
         return c;

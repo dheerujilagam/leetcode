@@ -11,9 +11,9 @@ class Solution {
     long long countPairs(int n, int arr[], int k) {
         // code here
         long dp[k]={0};
-        for(int i=0;i<n;i++){
-            arr[i]=(arr[i]+k)%k;
-        }
+        // for(int i=0;i<n;i++){
+        //     arr[i]=(arr[i]+k)%k;
+        // }
         for(int i=0;i<n;i++)
             dp[arr[i]%k]++;
         long c=0;

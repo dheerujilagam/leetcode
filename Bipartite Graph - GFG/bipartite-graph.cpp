@@ -5,35 +5,33 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    bool checkBip(int si,vector<int>adj[],int v,int color[]){
-         queue<int>q;
-         q.push(si);
-         color[si]=1;
-         while(!q.empty()){
-             int node = q.front();
-             q.pop();
-             for(auto it:adj[node]){
-                 if(color[it]==-1)
-                 {
-                     q.push(it);
-                    color[it]=1-color[node];
-                 }
-                 else if(color[it]==color[node])
-                 return false;
-             }
-         }
-         return true;
-     }
+    bool graphColor(int i, vector<int> adj[], vector<int> &colors){
+        queue<int>q;
+        q.push(i);
+        colors[i]=1;
+        while(!q.empty()){
+            int cur=q.front();
+            q.pop();
+            for(auto it:adj[cur]){
+                if(colors[it]==-1){
+                    q.push(it);
+                    colors[it]=1-colors[cur];
+                }
+                else if(colors[it]==colors[cur])
+                    return false;
+            }
+        }
+        return true;
+    }
 	bool isBipartite(int V, vector<int>adj[]){
 	    // Code here
-	   int color[V];
-	   memset(color,-1,sizeof color);
-	   for(int i=0;i<V;i++){
-	       if(color[i]==-1){
-	           if(!checkBip(i,adj,V,color))
-	           return false;
-	       }
-	   }
+	    vector<int>colors(V,-1);
+	    for(int i=0;i<V;i++){
+	        if(colors[i]==-1){
+                if(!graphColor(i,adj,colors))
+                    return false;
+            }
+	    }
 	    return true;
 	}
 };

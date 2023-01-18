@@ -47,14 +47,29 @@ class Solution
     int findFirstNode(Node* head)
     {
         // your code here
-        map<Node*,int>mp;
-        while(head){
-            if(mp[head]>=1){
-                return head->data;
+        // map<Node*,int>mp;
+        // while(head){
+        //     if(mp[head]>=1){
+        //         return head->data;
+        //     }
+        //     else
+        //         mp[head]++;
+        //     head=head->next;
+        // }
+        // return -1;
+        Node* fast=head;
+        Node* slow=head;
+        Node* cur=head;
+        while(fast!=NULL && head->next!=NULL){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow){
+                while(slow!=cur){
+                    cur=cur->next;
+                    slow=slow->next;
+                }
+                return cur->data;
             }
-            else
-                mp[head]++;
-            head=head->next;
         }
         return -1;
     }

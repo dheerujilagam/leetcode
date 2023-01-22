@@ -5,22 +5,26 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 	public:
-	int maxSumIS(int a[], int n)  
+	int dp[1001][1001];
+	int solve(int i, int pre, int n, int arr[]){
+	    if(i==n)
+	        return 0;
+	    if(dp[i][pre+1]!=-1)
+	        return dp[i][pre+1];
+	    int a=0,b=0;
+	    if(pre==-1 || arr[pre]<arr[i]){
+	        a=arr[i]+solve(i+1,i,n,arr);
+	        b=solve(i+1,pre,n,arr);
+	        return dp[i][pre+1]=max(a,b);
+	    }
+	    else{
+	        return dp[i][pre+1]=solve(i+1,pre,n,arr);
+	    }
+	}
+	int maxSumIS(int arr[], int n)  
 	{  
-	    int mxs=0;
-	    vector<int>dp(n,0);
-	    for(int i=0;i<n;i++){
-	        for(int j=0;j<i;j++){
-	            if(a[j]<a[i] && dp[i]<a[j]+dp[j]){
-	                dp[i]=a[j]+dp[j];
-	            }
-	        }
-	    }
-	    for(int i=0;i<n;i++){
-	        dp[i]+=a[i];
-	        mxs=max(mxs,dp[i]);
-	    }
-	    return mxs;
+	    memset(dp,-1,sizeof(dp));
+	    return solve(0,-1,n,arr);
 	}  
 };
 

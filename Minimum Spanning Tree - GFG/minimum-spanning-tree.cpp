@@ -7,29 +7,90 @@ class Solution
 {
 	public:
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
-    int spanningTree(int v, vector<vector<int>> adj[])
+	
+	struct node{
+        int u,v,wt;
+        node(int first , int second, int wight){
+            u = first;
+            v = second;
+            wt = wight;
+        }
+        
+    };
+    
+    static bool comp(node a , node b){
+        return a.wt < b.wt;
+    }
+	
+	int parent[1001];
+	int rank[1001];
+	void setData(){
+	    for(int i=0;i<=1000;i++){
+	        rank[i]=0;
+	        parent[i]=i;
+	    }
+	}
+	
+	int findParent(int node){
+	    if(parent[node]==node)
+	        return node;
+	    return parent[node]=findParent(parent[node]);
+	}
+	
+	void Union(int u, int v){
+	    u=findParent(u);
+	    v=findParent(v);
+	    if(rank[u]<rank[v]){
+	        parent[u]=v;
+	    }
+	    else if(rank[u]>rank[v]){
+	        parent[v]=u;
+	    }
+	    else{
+	        parent[v]=u;
+	        rank[u]++;
+	    }
+	}
+	
+    int spanningTree(int V, vector<vector<int>> adj[])
     {
-        // code here
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>pq;
-    	int ans=0;
-    	vector<int>vis(v,0);
-    	pq.push({0,0});
-    	while(!pq.empty()){
-    	    pair<int,int>p=pq.top();
-    	    pq.pop();
-    	    int node=p.second;
-    	    int wt=p.first;
-    	    if(!vis[node]){
-    	        vis[node]=1;
-    	        ans+=wt;
-    	        for(auto it:adj[node]){
-    	            if(!vis[it[0]]){
-    	                pq.push({it[1],it[0]});
-    	            }
-    	        }
-    	    }
-    	}
-    	return ans;
+        //     priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>pq;
+        // 	int ans=0;
+        // 	vector<int>vis(v,0);
+        // 	pq.push({0,0});
+        // 	while(!pq.empty()){
+        // 	    pair<int,int>p=pq.top();
+        // 	    pq.pop();
+        // 	    int node=p.second;
+        // 	    int wt=p.first;
+        // 	    if(!vis[node]){
+        // 	        vis[node]=1;
+        // 	        ans+=wt;
+        // 	        for(auto it:adj[node]){
+        // 	            if(!vis[it[0]]){
+        // 	                pq.push({it[1],it[0]});
+        // 	            }
+        // 	        }
+        // 	    }
+        // 	}
+        // 	return ans;
+        setData();
+        vector<node>edges;
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                int u=i,v=it[0],wt=it[1];
+                edges.push_back(node(u,v,wt));
+            }
+        }
+        sort(edges.begin(),edges.end(),comp);
+        int cost=0;
+        for(auto it:edges){
+            if(findParent(it.v)!=findParent(it.u)){
+                cost+=it.wt;
+                Union(it.v,it.u);
+            }
+        }
+        return cost;
     }
 };
 

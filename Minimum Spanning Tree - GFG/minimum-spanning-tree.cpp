@@ -15,15 +15,19 @@ class Solution
     	vector<int>vis(v,0);
     	pq.push({0,0});
     	while(!pq.empty()){
-    		pair<int,int>p=pq.top();
-    		pq.pop();
-    		if(!vis[p.second]){
-    		    vis[p.second]=1;
-    		    ans+=p.first;
-    		    for(auto it:adj[p.second]){
-    		        pq.push({it[1],it[0]});
-        		}
-    		}
+    	    pair<int,int>p=pq.top();
+    	    pq.pop();
+    	    int node=p.second;
+    	    int wt=p.first;
+    	    if(!vis[node]){
+    	        vis[node]=1;
+    	        ans+=wt;
+    	        for(auto it:adj[node]){
+    	            if(!vis[it[0]]){
+    	                pq.push({it[1],it[0]});
+    	            }
+    	        }
+    	    }
     	}
     	return ans;
     }

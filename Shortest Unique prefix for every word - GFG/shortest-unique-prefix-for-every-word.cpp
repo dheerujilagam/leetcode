@@ -35,9 +35,9 @@ class Solution
     	TrieNode* cur=root;
     	string res="";
     	for(char it:key){
-    		res+=it;
-    		if(cur->child[it-'a']->cnt==1)
+    		if(cur->child[it-'a']==NULL || cur->cnt==1)
     		    break;
+    		res+=it;
     		cur=cur->child[it-'a'];
     	}
     	return res;

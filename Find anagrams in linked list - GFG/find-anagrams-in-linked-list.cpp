@@ -55,22 +55,27 @@ printList(Node* node);
 class Solution {
   public:
     vector<Node*> findAnagrams(struct Node* head, string s) {
-        
         int n = s.size();
         vector<Node*> ans;
         vector<int> f1(26, 0), f2(26, 0);
-
         for(char it : s) f1[it - 'a']++;
-        
         Node* st = head, *end = head;
         int count = 0;
         while(end) {
             f2[end -> data - 'a']++;
             count++;
             if(f1 == f2) {
-                ans.push_back(st);
+                Node* c1 = NULL, *c2 = NULL;
+                while(st != end -> next){
+                    if(c1 == NULL) c1 = c2 = new Node(st -> data);
+                    else {
+                        c2 -> next = new Node(st -> data);
+                        c2 = c2 -> next;
+                    }
+                    st = st -> next;
+                }
+                ans.push_back(c1);
                 st = end -> next;
-                end -> next = NULL;
                 end = st;
                 for(int i = 0; i < 26; i++) f2[i] = 0;
                 count = 0;

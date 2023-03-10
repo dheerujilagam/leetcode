@@ -12,9 +12,30 @@ class Solution {
   public:
     long long maxTripletProduct(long long arr[], int n)
     {
-    	// Complete the function
-    	sort(arr, arr + n);
-    	return max(arr[0] * arr[1] * arr[n - 1], arr[n - 1] * arr[n - 2] * arr[n - 3]);
+    	long long minF = LLONG_MAX, minS = LLONG_MAX, maxF = LLONG_MIN, maxS = LLONG_MIN, maxT = LLONG_MIN;
+    	for(int i = 0; i < n; i++) {
+    	    if(minF > arr[i]) {
+    	        minS = minF;
+    	        minF = arr[i];
+    	    }
+    	    else if(minS > arr[i]) {
+    	        minS = arr[i];
+    	    }
+    	    if(maxF < arr[i]) {
+    	        maxT = maxS;
+    	        maxS = maxF;
+    	        maxF = arr[i];
+    	    }
+    	    else if(maxS < arr[i]) {
+    	        maxT = maxS;
+    	        maxS = arr[i];
+    	    }
+    	    else if(maxT < arr[i]) {
+    	        maxT = arr[i];
+    	    }
+    	}
+    // 	cout << minF << " " << minS << " " << maxF << " " << maxS << " " << maxT << " ";
+    	return max(minF * minS * maxF, maxF * maxS * maxT);
     }
 };
 

@@ -10,14 +10,13 @@ using namespace std;
 class Solution{
     public:
     bool check(int n, vector<int> &a, int mid) {
-        int count = 0;
         for(int it : a) {
             int i = 1, cnt = 0;
             while(cnt + (it * i) <= mid) {
                 cnt += (it * i++);
-                count++;
+                n--;
             }
-            if(count >= n) return true;
+            if(n <= 0) return true;
         }
         return false;
     }

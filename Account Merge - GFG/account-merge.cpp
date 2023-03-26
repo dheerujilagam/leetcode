@@ -36,7 +36,7 @@ class Solution{
     vector<vector<string>> accountsMerge(vector<vector<string>> &accounts) {
         int n = accounts.size();
         UnionFind();
-        map<string, int> mp;
+        unordered_map<string, int> mp;
         vector<vector<string>> ans;
         for(int i = 0; i < n; i++) {
             for(int j = 1; j < accounts[i].size(); j++) {

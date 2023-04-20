@@ -98,27 +98,22 @@ struct Node
 
 class Solution{
     public:
+    void dfs(Node* node, unordered_map<int, vector<int>> &adj) {
+        if(node == NULL) return ;
+        if(node -> left) {
+            adj[node -> data].push_back(node -> left -> data);
+            adj[node -> left -> data].push_back(node -> data);
+            dfs(node -> left, adj);
+        }
+        if(node -> right) {
+            adj[node -> data].push_back(node -> right -> data);
+            adj[node -> right -> data].push_back(node -> data);
+            dfs(node -> right, adj);
+        }
+    }
     int ladoos(Node* root, int home, int k) {
         unordered_map<int, vector<int>> adj;
-        queue<Node*> qr;
-        qr.push(root);
-        while(!qr.empty()) {
-            int n = qr.size();
-            while(n--) {
-                Node* node = qr.front();
-                qr.pop();
-                if(node -> left) {
-                    adj[node -> data].push_back(node -> left -> data);
-                    adj[node -> left -> data].push_back(node -> data);
-                    qr.push(node -> left);
-                }
-                if(node -> right) {
-                    adj[node -> data].push_back(node -> right -> data);
-                    adj[node -> right -> data].push_back(node -> data);
-                    qr.push(node -> right);
-                }
-            }
-        }
+        dfs(root, adj);
         queue<pair<int, pair<int, int>>> q;
         q.push({0, {home, -1}});
         int ans = 0;

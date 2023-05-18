@@ -9,46 +9,34 @@ using namespace std;
 
 class Solution {
     public:
-    bool isValid(int i, int j, int n, int m, vector<vector<int>>& grid){
-        if(i>=0 && i<n && j>=0 && j<m && grid[i][j]==1){
-            return true;   
-        }
-        return false;
+    void dfs(int i, int j, int n, int m, vector<vector<int>> &mat) {
+        if(i < 0 || j < 0 || i >= n || j >= m || mat[i][j] == 0) return ;
+        mat[i][j] = 0;
+        dfs(i - 1, j, n, m, mat);
+        dfs(i + 1, j, n, m, mat);
+        dfs(i, j - 1, n, m, mat);
+        dfs(i, j + 1, n, m, mat);
+        return ;
     }
-    void check(vector<vector<int>>& grid, int i, int j, int n, int m){
-        grid[i][j]=0;
-        if(isValid(i+1, j, n, m, grid)){
-            check(grid, i+1, j, n, m);
-        }
-        if(isValid(i-1, j, n, m, grid)){
-            check(grid, i-1, j, n, m);
-        }
-        if(isValid(i, j+1, n, m, grid)){
-            check(grid, i, j+1, n, m);
-        }
-        if(isValid(i, j-1, n, m, grid)){
-            check(grid, i, j-1, n, m);
-        }
-    }
-    int closedIslands(vector<vector<int>>& grid, int n, int m) {
+    int closedIslands(vector<vector<int>>& mat, int n, int m) {
         // Code here
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==1 && (i==0 || j==0 || i==n-1 || j==m-1)){
-                    check(grid,i,j,n,m);
+        int no_of_islands = 0;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(mat[i][j] == 1 && (i == 0 || j == 0 || i == n - 1 || j == m - 1)) {
+                    dfs(i, j, n, m, mat);
                 }
             }
         }
-        int c=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==1){
-                    c++;
-                    check(grid,i,j,n,m);
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(mat[i][j] == 1) {
+                    no_of_islands++;
+                    dfs(i, j, n, m, mat);
                 }
             }
         }
-        return c;
+        return no_of_islands;
     }
 };
 

@@ -9,26 +9,20 @@ using namespace std;
 
 class Solution{   
 public:
-    int solve(int i, int n, int sum, vector<int> &arr, vector<vector<int>> &dp){
-	    if(sum < 0)
-	        return 0;
-	    if(i == n){
-	        if(sum == 0)
-	            return 1;
-	        return 0;
-	    }
-	    if(dp[i][sum] != -1)
-	        return dp[i][sum];
-	    int in = solve(i + 1, n, sum - arr[i], arr, dp);
-	    int ex = solve(i + 1, n, sum, arr, dp);
-	    return dp[i][sum] = in | ex;
-	}
-	
+    bool solve(int id, int sum, vector<int> &arr, vector<vector<int>> &dp) {
+        if(sum == 0) return 1;
+        if(id == arr.size()) return 0;
+        if(dp[id][sum] != -1) return dp[id][sum];
+        int a = 0, b = 0;
+        if(sum - arr[id] >= 0) a = solve(id + 1, sum - arr[id], arr, dp);
+        b = solve(id + 1, sum, arr, dp);
+        return dp[id][sum] = a | b;
+    }
     bool isSubsetSum(vector<int>arr, int sum){
-        // code here 
+        // code here
         int n = arr.size();
-        vector<vector<int>> dp(n, vector<int>(sum + 1, -1));
-        return solve(0, n, sum, arr, dp);
+        vector<vector<int>> dp(n, vector<int> (sum + 1, -1));
+        return solve(0, sum, arr, dp);
     }
 };
 

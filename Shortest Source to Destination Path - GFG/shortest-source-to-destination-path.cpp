@@ -9,36 +9,29 @@ using namespace std;
 
 class Solution {
   public:
-    int shortestDistance(int n, int m, vector<vector<int>> arr, int r, int c) {
+    int shortestDistance(int n, int m, vector<vector<int>> arr, int x, int y) {
         // code here
-        if(r==0 and c==0)
-            return 0;
-        if(arr[0][0]==0)
-            return -1;
-        queue<pair<int,int>>q;
-        q.push({0,0});
-        while(!q.empty()){
-            int i=q.front().first,j=q.front().second;
-            q.pop();
-            if(i==r and j==c){
-                return arr[i][j]-1;
+        if(arr[0][0] == 0 || arr[x][y] == 0) return -1;
+        int dx[] = {1, 0, -1, 0};
+        int dy[] = {0, 1, 0, -1};
+        queue<pair<int, int>> q;
+        q.push({0, 0});
+        int ans = 0;
+        while(!q.empty()) {
+            int len = q.size();
+            while(len--) {
+                pair<int, int> p = q.front();
+                q.pop();
+                if(p.first == x && p.second == y) return ans;
+                for(int i = 0; i < 4; i++) {
+                    int a = p.first + dx[i], b = p.second + dy[i];
+                    if(a >= 0 && b >= 0 && a < n && b < m && arr[a][b]) {
+                        arr[a][b] = 0;
+                        q.push({a, b});
+                    }
+                }
             }
-            if(i>=1 and arr[i-1][j]==1){
-                q.push({i-1,j});
-                arr[i-1][j]=arr[i][j]+1;
-            }
-            if(i<n-1 and arr[i+1][j]==1){
-                q.push({i+1,j});
-                arr[i+1][j]=arr[i][j]+1;
-            }
-            if(j>=1 and arr[i][j-1]==1){
-                q.push({i,j-1});
-                arr[i][j-1]=arr[i][j]+1;
-            }
-            if(j<m-1 and arr[i][j+1]==1){
-                q.push({i,j+1});
-                arr[i][j+1]=arr[i][j]+1;
-            }
+            ans++;
         }
         return -1;
     }

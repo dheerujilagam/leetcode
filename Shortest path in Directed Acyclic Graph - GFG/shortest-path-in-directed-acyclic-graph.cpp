@@ -8,44 +8,32 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-     void toposort(int node, vector<pair<int,int>> adj[], vector<int>&vis, stack<int> &st){
-         vis[node]=1;
-         for(auto it:adj[node]){
-             if(!vis[it.first]){
-                 toposort(it.first,adj,vis,st);
-             }
-         }
-         st.push(node);
-     }
-     
-     vector<int> shortestPath(int n,int m, vector<vector<int>>& edges){
-        vector<pair<int,int>>adj[n];
-        for(int i=0;i<m;i++){
-            int u=edges[i][0],v=edges[i][1],wt=edges[i][2];
-            adj[u].push_back({v,wt});
+    int dfs(int st, int end, vector<pair<int, int>> adj[], vector<int> &dp) {
+        if(st == end) return 0;
+        if(dp[st] != -1) return dp[st];
+        int ans = INT_MAX;
+        for(auto it : adj[st]) {
+            int cur = dfs(it.first, end, adj, dp);
+            if(cur != INT_MAX) ans = min(ans, cur + it.second);
         }
-        stack<int>st;
-        vector<int>vis(n,0);
-        for(int i=0;i<n;i++){
-            if(!vis[i])
-                toposort(i,adj,vis,st);
+        return dp[st] = ans;
+    }
+  
+    vector<int> shortestPath(int n,int m, vector<vector<int>>& edges){
+        // code here
+        vector<pair<int, int>> adj[n];
+        for(vector<int> it : edges) {
+            int u = it[0], v = it[1], z = it[2];
+            adj[u].push_back({v, z});
         }
-        vector<int>dis(n,1e9);
-        dis[0]=0;
-        while(!st.empty()){
-            int node=st.top();
-            st.pop();
-            for(auto it:adj[node]){
-                if(dis[it.first]>dis[node]+it.second){
-                    dis[it.first]=dis[node]+it.second;
-                }
-            }
+        vector<int> res(n, 0);
+        for(int i = 1; i < n; i++) {
+            vector<int> dp(n, -1);
+            int c = dfs(0, i, adj, dp);
+            if(c == INT_MAX) res[i] = -1;
+            else res[i] = c;
         }
-        for(int &it:dis){
-            if(it==1e9)
-                it=-1;
-        }
-        return dis;
+        return res;
     }
 };
 

@@ -5,22 +5,16 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    long long change(int coins[], vector<vector<long long>>&dp, int n, int target, int sum, int id){
-        if(sum==target)
-            return 1;
-        if(id>=n || sum>target)
-            return 0;
-        if(dp[id][sum]!=-1)
-            return dp[id][sum];
-        long long ans=0;
-        for(int i=id;i<n;i++)
-            ans+=change(coins,dp,n,target,sum+coins[i],i);
-        return dp[id][sum]=ans;
+    long long int solve(int ind, int coins[], int n, int sum, vector<vector<long long int>> &dp) {
+        if(sum == 0) return 1;
+        if(ind == n || sum < 0) return 0;
+        if(dp[sum][ind] != -1) return dp[sum][ind];
+        return dp[sum][ind] = solve(ind, coins, n, sum - coins[ind], dp) + solve(ind + 1, coins, n, sum, dp);
     }
     long long int count(int coins[], int n, int sum) {
-        vector<vector<long long>>dp(n+1,vector<long long>(sum+1,-1));
-        sort(coins,coins+n);
-        return change(coins,dp,n,sum,0,0);
+        // code here.
+        vector<vector<long long int>> dp(sum + 1, vector<long long int> (n, -1));
+        return solve(0, coins, n, sum, dp);
     }
 };
 

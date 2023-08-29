@@ -59,14 +59,14 @@ class Solution
     Node *compute(Node *head)
     {
         // your code goes here
-        Node* cur = reverse(head), *res = NULL, *temp = NULL;
+        Node* cur = reverse(head), *res = NULL, *tem = NULL;
         while (cur != NULL) {
             if (res == NULL) {
-                res = temp = new Node(cur->data);
+                res = tem = new Node(cur->data);
             } else {
-                if (temp->data <= cur->data) {
-                    temp->next = new Node(cur->data);
-                    temp = temp->next;
+                if (tem->data <= cur->data) {
+                    tem->next = new Node(cur->data);
+                    tem = tem->next;
                 }
             }
             cur = cur->next;

@@ -100,36 +100,36 @@ class Solution
 private:
 
 public:
-    void preorder(Node* root, vector<int> adj[]) {
-        if(root == NULL) return ;
-        if(root->left != NULL) {
+    void preorder(Node* root, unordered_map<int, vector<int>>& adj) {
+        if (root == NULL) return;
+        if (root->left != NULL) {
             adj[root->data].push_back(root->left->data);
             adj[root->left->data].push_back(root->data);
             preorder(root->left, adj);
         }
-        if(root->right != NULL) {
+        if (root->right != NULL) {
             adj[root->data].push_back(root->right->data);
             adj[root->right->data].push_back(root->data);
             preorder(root->right, adj);
         }
-        return ;
+        return;
     }
-    vector <int> KDistanceNodes(Node* root, int target , int k)
-    {
-        vector<int> adj[10001];
+    
+    vector<int> KDistanceNodes(Node* root, int target, int k) {
+        unordered_map<int, vector<int>> adj;
         preorder(root, adj);
         vector<int> ans;
         queue<pair<int, int>> q;
-        vector<bool> vis(10001, false);
+        unordered_map<int, bool> vis;
         q.push({target, k});
         vis[target] = true;
-        while(!q.empty()) {
+        while (!q.empty()) {
             auto p = q.front();
             q.pop();
-            for(int it : adj[p.first]) {
-                if(vis[it]) continue;
-                if(p.second - 1 == 0) ans.push_back(it);
-                if(p.second - 1 > 0) q.push({it, p.second - 1});
+            for (int it : adj[p.first]) {
+                if (vis[it]) continue;
+                if (p.second - 1 == 0) ans.push_back(it);
+                if (p.second - 1 > 0) q.push({it, p.second - 1});
                 vis[it] = true;
             }
         }
@@ -137,6 +137,7 @@ public:
         return ans;
     }
 };
+
 
 //{ Driver Code Starts.
 
